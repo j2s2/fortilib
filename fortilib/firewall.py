@@ -42,6 +42,7 @@ from fortilib.service import (
 from fortilib.servicegroup import FortigateServiceGroup
 from fortilib.vip import FortigateVIP
 from fortilib.vipgroup import FortigateVIPGroup
+from fortilib.externalressource import FortigateExternalRessource
 
 
 class FortigateFirewall:
@@ -58,6 +59,7 @@ class FortigateFirewall:
     :ivar address_groups: List of :class:`fortilib.addressgroup.FortigateAddressGroup` (default: [])
     :ivar vips: List of :class:`fortilib.vip.FortigateVIP` (default: [])
     :ivar vip_groups: List of :class:`fortilib.vipgroup.FortigateVIPGroup` (default: [])
+    :ivar external_ressources: List of :class:`fortilib.externalressource.FortigateExternalRessource` (default: [])
     :ivar services: List of :class:`fortilib.service.FortigateService` (default: [])
     :ivar service_groups: List of :class:`fortilib.servicegroup.FortigateServiceGroup` (default: [])
     :ivar ippools: List of :class:`fortilib.ippool.FortigateIPPool` (default: [])
@@ -81,6 +83,7 @@ class FortigateFirewall:
         self.address_groups: List[FortigateAddressGroup] = []
         self.vips: List[FortigateVIP] = []
         self.vip_groups: List[FortigateVIPGroup] = []
+        self.external_ressources: List[FortigateVIPGroup] = []
         self.services: List[FortigateService] = []
         self.service_groups: List[FortigateServiceGroup] = []
         self.ippools: List[FortigateIPPool] = []
@@ -135,6 +138,7 @@ class FortigateFirewall:
         self.resolve_address_groups()
         self.vips = self.get_vips()
         self.vip_groups = self.get_vip_groups()
+        self.external_ressources = self.get_external_ressources()
         self.resolve_vip_groups()
         self.services = self.get_services()
         self.service_groups = self.get_service_groups()
@@ -222,6 +226,16 @@ class FortigateFirewall:
             groups.append(group)
 
         return groups
+
+    def get_external_ressources(self) -> List[FortigateExternalRessource]:
+        """Query Fortigate API for external ressource and create list.
+        """
+        ressources: List[FortigateExternalRessource] = []
+        for raw in self.fortigate.get_firewall_external_ressource():
+            ressource = FortigateExternalRessource.from_dict(raw)
+            ressources.append(ressource)
+
+        return ressources
 
     def resolve_vip_groups(self):
         """Resolve vips in vip groups.
@@ -376,6 +390,7 @@ class FortigateFirewall:
                     self.address_groups,
                     self.vips,
                     self.vip_groups,
+                    self.external_ressources,
                 ]
             )
             policy.find_services([self.services, self.service_groups])
