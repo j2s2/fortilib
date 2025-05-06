@@ -210,9 +210,9 @@ class FortigateFirewallApi:
         """
         return self.fortigate.delete_firewall_vip_group(vip_group_name)
 
-    def get_firewall_external_ressource(self):
-        """Get external ressource via Fortigate API"""
-        return self.fortigate.get_firewall_external_ressource()
+    def get_firewall_external_resource(self):
+        """Get external resource via Fortigate API"""
+        return self.fortigate.get_firewall_external_resource()
 
     def get_firewall_interface(self):
         """Get interfaces via Fortigate API"""
@@ -627,7 +627,7 @@ class FortiGateApi:
     ENDPOINT_FIREWALL_IPPOOL = "api/v2/cmdb/firewall/ippool/"
     ENDPOINT_FIREWALL_VIP = "api/v2/cmdb/firewall/vip/"
     ENDPOINT_FIREWALL_VIP_GROUP = "api/v2/cmdb/firewall/vipgrp/"
-    ENDPOINT_FIREWALL_EXTERNAL_RESSOURCE = "api/v2/cmdb/system/external-resource/"
+    ENDPOINT_FIREWALL_EXTERNAL_RESOURCE = "api/v2/cmdb/system/external-resource/"
     ENDPOINT_FIREWALL_POLICY = "api/v2/cmdb/firewall/policy/"
     ENDPOINT_FIREWALL_ADDRESS = "api/v2/cmdb/firewall/address/"
     ENDPOINT_FIREWALL_ADDRESS_GROUP = "api/v2/cmdb/firewall/addrgrp/"
@@ -929,9 +929,9 @@ class FortiGateApi:
             FortiGateApi.ENDPOINT_FIREWALL_VIP_GROUP, specific, filters
         )
 
-    def get_firewall_external_ressource(self, specific=False, filters=False):
+    def get_firewall_external_resource(self, specific=False, filters=False):
         return self.query_api_get(
-            FortiGateApi.ENDPOINT_FIREWALL_EXTERNAL_RESSOURCE, specific, filters
+            FortiGateApi.ENDPOINT_FIREWALL_EXTERNAL_RESOURCE, specific, filters
         )
 
     def get_firewall_ippool(self, specific=False, filters=False):
